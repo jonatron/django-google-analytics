@@ -22,7 +22,8 @@ def do_get_analytics(parser, token):
         raise template.TemplateSyntaxError, "%r cannot take more than one argument" % tag_name
    
     if not code:
-        current_site = Site.objects.get_current()
+        code = getattr(settings, 'GOOGLE_ANALYTICS_CODE', None)
+        current_site = None if code else Site.objects.get_current() 
     else:
         if not (code[0] == code[-1] and code[0] in ('"', "'")):
             raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tag_name
