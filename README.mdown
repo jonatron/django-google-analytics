@@ -32,6 +32,18 @@ I also added a mode of operation that excludes the admin interface altogether
 2. In your base template, usually a `base.html`, insert this tag at the very top: `{% load analytics %}`
 3. In the same template, insert the following code right before the closing body tag: `{% analytics "UA-xxxxxx-x" %}` the `UA-xxxxxx-x` is a unique Google Analytics code for you domain when you sign up for a new account.
 
+## Event Tracking ##
+1: Add `{% load events_campaigns %}` to your template
+2: Use the template tag eg: `{% event_tag 'cattest' 'actiontest' 'labeltest' %}`
+
+## Campaign URLs ##
+1: Add any of `GOOGLE_ANALYTICS_SOURCE`, `GOOGLE_ANALYTICS_MEDIUM`, `GOOGLE_ANALYTICS_NAME`, `GOOGLE_ANALYTICS_TERM`, `GOOGLE_ANALYTICS_CONTENT` to
+  your `settings.py`
+2: Add `{% load events_campaigns %}` to your template
+3: Use the template tag, where the first parameter is an object on which you can call `get_absolute_url`.
+eg: `{% campaign_link foo source='bbb' term="hometerm" %}`
+The rest of the template tag paramters are optional: 'source', 'medium', 'name', 'term', 'content'. However, if 'source', 'medium' or 'name' are not parameters, they must be in settings instead.
+
 
 ## Asynchronous Tracking ##
 
